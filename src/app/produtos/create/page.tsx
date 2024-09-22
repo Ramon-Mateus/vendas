@@ -1,6 +1,7 @@
 'use client'
 
 import { Categoria, Produto } from "@/app/lib/types";
+import { fetchApi } from "@/app/lib/utilities";
 import { useEffect, useState } from "react";
 import { SubmitHandler, useForm, useWatch } from "react-hook-form";
 
@@ -54,7 +55,7 @@ export default function CreateProduto() {
     useEffect(() => {
         const getCategorias = async () => {
             try {
-                const categorias = await fetchCategorias();
+                const categorias = await fetchApi('https://localhost:44334/api/categoria');
                 setCategorias(categorias);
             } catch (error) {
                 console.error("Erro ao buscar categorias:", error);
@@ -117,17 +118,11 @@ export default function CreateProduto() {
 
                 <button 
                         type="submit"
-                        className="bg-blue-600 text-white w-full text-center py-3 rounded-md mt-5"
+                        className="bg-blue-600 hover:bg-blue-700 text-white w-full text-center py-3 rounded-md mt-5"
                     >
                         Adicionar Produto
                     </button>
             </form>
         </div>
     )
-}
-
-async function fetchCategorias() {
-    const response = await fetch('https://localhost:44334/api/categoria');
-    const data = await response.json();
-    return data;
 }

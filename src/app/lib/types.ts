@@ -1,8 +1,10 @@
 export type Produto = {
+    id: number,
     nome: string,
     categoriaId: number,
     preco: number,
-    fornecedor: string
+    fornecedor: string,
+    categoriaNome: string
 }
 
 export type Categoria = {
