@@ -91,9 +91,7 @@ export default function Produtos(){
                     <p className="text-gray-900 whitespace-no-wrap">{produto.fornecedor}</p>
                   </td>
                   <td className="py-5 border-b border-gray-200 bg-white text-base">
-                    <button className="text-white hover:bg-green-600 mr-3 bg-green-500 py-2 px-3 rounded-lg">
-                      <Link href={`../produtos/${produto.id}`}>Editar</Link>
-                    </button>
+                    <Link className="text-white hover:bg-green-600 mr-3 bg-green-500 py-2 px-3 rounded-lg" href={`../produtos/${produto.id}`}>Editar</Link>
                     <button onClick={() => handleDelete(produto.id)} className="text-white hover:bg-red-600 bg-red-500 py-2 px-3 rounded-lg">
                         Excluir
                     </button>
