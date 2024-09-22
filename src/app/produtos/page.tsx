@@ -92,7 +92,7 @@ export default function Produtos(){
                   </td>
                   <td className="py-5 border-b border-gray-200 bg-white text-base">
                     <button className="text-white hover:bg-green-600 mr-3 bg-green-500 py-2 px-3 rounded-lg">
-                      Editar
+                      <Link href={`../produtos/${produto.id}`}>Editar</Link>
                     </button>
                     <button onClick={() => handleDelete(produto.id)} className="text-white hover:bg-red-600 bg-red-500 py-2 px-3 rounded-lg">
                         Excluir
