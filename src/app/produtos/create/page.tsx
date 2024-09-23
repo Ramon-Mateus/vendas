@@ -2,7 +2,7 @@
 
 import { Categoria, Fornecedor, Produto } from "@/app/lib/types";
 import { fetchApi } from "@/app/lib/utilities";
-import { Modal } from "@/components/page";
+import { Modal } from "@/components/Modal";
 import { useEffect, useState } from "react";
 import { SubmitHandler, useForm, useWatch } from "react-hook-form";
 
@@ -34,7 +34,6 @@ export default function CreateProduto() {
         })
         .then((data) => {
             reset();
-            //router.replace('/home');
         });
     };
 

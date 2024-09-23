@@ -4,6 +4,7 @@ export type Produto = {
     categoriaId: number,
     preco: number,
     fornecedorId: number,
+    fornecedor: string,
     categoriaNome: string
 }
 
