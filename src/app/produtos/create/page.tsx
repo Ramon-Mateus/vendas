@@ -1,6 +1,6 @@
 'use client'
 
-import { Categoria, Produto } from "@/app/lib/types";
+import { Categoria, Fornecedor, Produto } from "@/app/lib/types";
 import { fetchApi } from "@/app/lib/utilities";
 import { useEffect, useState } from "react";
 import { SubmitHandler, useForm, useWatch } from "react-hook-form";
@@ -8,6 +8,7 @@ import { SubmitHandler, useForm, useWatch } from "react-hook-form";
 export default function CreateProduto() {
     const { register, control, handleSubmit, reset, formState: { errors } } = useForm<Produto>();
     const [categorias, setCategorias] = useState<Categoria[]>([])
+    const [fornecedores, setFornecedores] = useState<Fornecedor[]>([])
 
     const onSubmit: SubmitHandler<Produto> = (data) => {
         fetch('https://localhost:44334/api/produto/', {
@@ -49,7 +50,7 @@ export default function CreateProduto() {
 
     const fornecedorProduto = useWatch({
         control,
-        name: "fornecedor"
+        name: "fornecedorId"
     });
 
     useEffect(() => {
@@ -61,8 +62,18 @@ export default function CreateProduto() {
                 console.error("Erro ao buscar categorias:", error);
             }
         };
-      
-          getCategorias();
+
+        const getFornecedores = async () => {
+            try {
+                const fornecedores = await fetchApi('https://localhost:44334/api/fornecedor');
+                setFornecedores(fornecedores);
+            } catch (error) {
+                console.error("Erro ao buscar forncedores:", error);
+            }
+        };
+        
+        getFornecedores();
+        getCategorias();
     }, []);
 
     return(
@@ -80,19 +91,33 @@ export default function CreateProduto() {
                     {errors.nome && <p className="text-red-500 text-xs italic mt-1">{errors.nome.message}</p>}
                 </div>
 
-                    <div className="mb-4">
-                        <label className="block text-gray-800 text-sm font-bold mb-1" htmlFor="categoria">Categoria</label>
-                        <select {...register('categoriaId', { required: 'Por favor, selecione uma categoria' })} 
-                        className="w-full px-3 py-2 border rounded-md text-gray-700 font-sans bg-white">
-                            <option value="">Selecione uma opção</option>
-                            {categorias.map((categoria) => (
-                                <option key={categoria.id} value={categoria.id}>{categoria.nome}</option>
-                            ))}
-                        </select>
-                        {errors.categoriaId && (
-                            <p className="text-red-500 text-xs italic mt-1">{errors.categoriaId.message}</p>
-                        )}
-                    </div>
+                <div className="mb-4">
+                    <label className="block text-gray-800 text-sm font-bold mb-1" htmlFor="categoria">Categoria</label>
+                    <select {...register('categoriaId', { required: 'Por favor, selecione uma categoria' })} 
+                    className="w-full px-3 py-2 border rounded-md text-gray-700 font-sans bg-white">
+                        <option value="">Selecione uma opção</option>
+                        {categorias.map((categoria) => (
+                            <option key={categoria.id} value={categoria.id}>{categoria.nome}</option>
+                        ))}
+                    </select>
+                    {errors.categoriaId && (
+                        <p className="text-red-500 text-xs italic mt-1">{errors.categoriaId.message}</p>
+                    )}
+                </div>
+
+                <div className="mb-4">
+                    <label className="block text-gray-800 text-sm font-bold mb-1" htmlFor="fornecedor">Fornecedor</label>
+                    <select {...register('fornecedorId', { required: 'Por favor, selecione um fornecedor' })} 
+                    className="w-full px-3 py-2 border rounded-md text-gray-700 font-sans bg-white">
+                        <option value="">Selecione uma opção</option>
+                        {fornecedores.map((fornecedor) => (
+                            <option key={fornecedor.id} value={fornecedor.id}>{fornecedor.nome}</option>
+                        ))}
+                    </select>
+                    {errors.categoriaId && (
+                        <p className="text-red-500 text-xs italic mt-1">{errors.categoriaId.message}</p>
+                    )}
+                </div>
 
                 <div className="mb-4">
                     <label className="block text-gray-800 text-sm font-bold mb-1" htmlFor="preco">Preço (R$)</label>
@@ -104,16 +129,6 @@ export default function CreateProduto() {
                         min={0}
                     />
                     {errors.preco && <p className="text-red-500 text-xs italic mt-1">{errors.preco.message}</p>}
-                </div>
-
-                <div className="mb-4">
-                    <label className="block text-gray-800 text-sm font-bold mb-1" htmlFor="fornecedor">Fornecedor:</label>
-                    <input
-                        type="text"
-                        {...register('fornecedor', { required: "Fornecedor é obrigatório" })}
-                        className="w-full px-3 py-2 border rounded-md text-gray-700 font-sans focus:outline-none"
-                    />
-                    {errors.fornecedor && <p className="text-red-500 text-xs italic mt-1">{errors.fornecedor.message}</p>}
                 </div>
 
                 <button 

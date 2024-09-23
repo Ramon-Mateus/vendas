@@ -3,7 +3,7 @@ export type Produto = {
     nome: string,
     categoriaId: number,
     preco: number,
-    fornecedor: string,
+    fornecedorId: number,
     categoriaNome: string
 }
 
@@ -16,6 +16,11 @@ export type ProdutoEdit = {
 }
 
 export type Categoria = {
+    id: number,
+    nome: string
+}
+
+export type Fornecedor = {
     id: number,
     nome: string
 }
