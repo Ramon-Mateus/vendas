@@ -19,3 +19,10 @@ export type Categoria = {
     id: number,
     nome: string
 }
+
+export type Estoque = {
+    produtoId: number,
+    nome: string,
+    estoque: number,
+    fornecedor: string
+}
