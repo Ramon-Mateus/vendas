@@ -1,7 +1,7 @@
 'use client'
 
 import { Categoria, Fornecedor, Produto } from "@/app/lib/types";
-import { fetchApi } from "@/app/lib/utilities";
+import { config, fetchApi } from "@/app/lib/utilities";
 import { Modal } from "@/components/Modal";
 import { useEffect, useState } from "react";
 import { SubmitHandler, useForm, useWatch } from "react-hook-form";
@@ -17,7 +17,7 @@ export default function CreateProduto() {
     const { register: registerCategoria, handleSubmit: handleSubmitCategoria, reset: resetCategoria, formState: { errors: errorsCategoria } } = useForm<Categoria>();
 
     const onSubmit: SubmitHandler<Produto> = (data) => {
-        fetch('https://localhost:44334/api/produto/', {
+        fetch(`${config.API_BASE_URL}/api/produto/`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -38,7 +38,7 @@ export default function CreateProduto() {
     };
 
     const onSubmitFornecedor: SubmitHandler<Fornecedor> = (data) => {
-        fetch('https://localhost:44334/api/fornecedor/', {
+        fetch(`${config.API_BASE_URL}/api/fornecedor/`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -61,7 +61,7 @@ export default function CreateProduto() {
     };
 
     const onSubmitCategoria: SubmitHandler<Categoria> = (data) => {
-        fetch('https://localhost:44334/api/categoria/', {
+        fetch(`${config.API_BASE_URL}/api/categoria/`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -85,7 +85,7 @@ export default function CreateProduto() {
 
     const getCategorias = async () => {
         try {
-            const categorias = await fetchApi('https://localhost:44334/api/categoria');
+            const categorias = await fetchApi(`${config.API_BASE_URL}/api/categoria`);
             setCategorias(categorias);
         } catch (error) {
             console.error("Erro ao buscar categorias:", error);
@@ -94,7 +94,7 @@ export default function CreateProduto() {
 
     const getFornecedores = async () => {
         try {
-            const fornecedores = await fetchApi('https://localhost:44334/api/fornecedor');
+            const fornecedores = await fetchApi(`${config.API_BASE_URL}/api/fornecedor`);
             setFornecedores(fornecedores);
         } catch (error) {
             console.error("Erro ao buscar forncedores:", error);

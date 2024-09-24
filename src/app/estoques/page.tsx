@@ -2,9 +2,10 @@
 
 import { useEffect, useState } from "react";
 import { Estoque, Movimentacao, Produto } from "../lib/types";
-import { fetchApi } from "../lib/utilities";
+import { config, fetchApi } from "../lib/utilities";
 import { Modal } from "@/components/Modal";
 import { SubmitHandler, useForm } from "react-hook-form";
+import Link from "next/link";
 
 export default function EstoquePage() {
   const [estoques, setEstoques] = useState<Estoque[]>([])
@@ -14,7 +15,7 @@ export default function EstoquePage() {
 
   const onSubmit: SubmitHandler<Movimentacao> = (data) => {
     console.log('Dados enviados:', data);
-    fetch('https://localhost:44334/api/estoque/', {
+    fetch(`${config.API_BASE_URL}/api/estoque/`, {
         method: 'POST',
         headers: {
             'content-type': 'application/json'
@@ -39,7 +40,7 @@ export default function EstoquePage() {
 
   const getEstoques = async () => {
     try {
-        const estoquesApi = await fetchApi('https://localhost:44334/api/estoque');
+        const estoquesApi = await fetchApi(`${config.API_BASE_URL}/api/estoque`);
         setEstoques(estoquesApi);
     } catch (error) {
         console.error("Erro ao buscar estoques:", error);
@@ -48,7 +49,7 @@ export default function EstoquePage() {
 
   const getProdutos = async () => {
     try {
-        const produtosApi = await fetchApi('https://localhost:44334/api/produto');
+        const produtosApi = await fetchApi(`${config.API_BASE_URL}/api/produto`);
         setProdutos(produtosApi);
     } catch (error) {
         console.error("Erro ao buscar produtos:", error);
@@ -123,9 +124,14 @@ export default function EstoquePage() {
         </div>
         <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                  <button onClick={() => setOpen(true)} className="bg-green-500 text-white flex justify-center items-center p-2 rounded-md">
+                  <button onClick={() => setOpen(true)} className="bg-blue-500 text-white flex justify-center items-center p-2 rounded-md">
                       Criar Movimentação
                   </button>
+                  <Link href='../estoques/categorias/'>
+                    <button className="bg-green-500 text-white flex justify-center items-center p-2 rounded-md">
+                        Estoques por categoria
+                    </button>
+                  </Link>
               </div>
           </div>
       </div>

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Produto } from "../lib/types";
-import { fetchApi } from "../lib/utilities";
+import { config, fetchApi } from "../lib/utilities";
 import Link from "next/link";
 
 export default function Produtos(){
@@ -11,7 +11,7 @@ export default function Produtos(){
     useEffect(() => {
         const getProdutos = async () => {
             try {
-                const produtos = await fetchApi('https://localhost:44334/api/produto');
+                const produtos = await fetchApi(`${config.API_BASE_URL}/api/produto`);
                 setProdutos(produtos);
             } catch (error) {
                 console.error("Erro ao buscar categorias:", error);
@@ -26,7 +26,7 @@ export default function Produtos(){
 
         if(confirmDelete) {
             try{
-                await fetch(`https://localhost:44334/api/produto/${id}`, {
+                await fetch(`${config.API_BASE_URL}/api/produto/${id}`, {
                     method: 'DELETE',
                 })
 
@@ -42,9 +42,11 @@ export default function Produtos(){
         <div className="container mx-auto px-4 py-8">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-3xl font-bold text-gray-800">Listagem de Produtos</h1>
-          <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded inline-flex items-center">
-            <Link href='../produtos/create'>Adicionar Produto</Link>
-          </button>
+          <Link href='../produtos/create'>
+            <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded inline-flex items-center">
+              Adicionar Produto
+            </button>
+          </Link>
         </div>
         <div className="overflow-x-auto bg-white shadow-md rounded-lg">
           <table className="min-w-full leading-normal">

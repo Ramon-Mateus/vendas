@@ -1,7 +1,7 @@
 'use client'
 
 import { Categoria, Fornecedor, Produto } from "@/app/lib/types";
-import { fetchApi } from "@/app/lib/utilities";
+import { config, fetchApi } from "@/app/lib/utilities";
 import { useEffect, useState } from "react";
 import { SubmitHandler, useForm, useWatch } from "react-hook-form";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
@@ -21,7 +21,7 @@ export default function EditProduto() {
     const { register: registerCategoria, handleSubmit: handleSubmitCategoria, reset: resetCategoria, formState: { errors: errorsCategoria } } = useForm<Categoria>();
 
     const onSubmit: SubmitHandler<Produto> = (data) => {
-        fetch(`https://localhost:44334/api/produto/${id}`, {
+        fetch(`${config.API_BASE_URL}/api/produto/${id}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'
@@ -37,7 +37,7 @@ export default function EditProduto() {
     };
 
     const onSubmitFornecedor: SubmitHandler<Fornecedor> = (data) => {
-        fetch('https://localhost:44334/api/fornecedor/', {
+        fetch(`${config.API_BASE_URL}/api/fornecedor/`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -60,7 +60,7 @@ export default function EditProduto() {
     };
 
     const onSubmitCategoria: SubmitHandler<Categoria> = (data) => {
-        fetch('https://localhost:44334/api/categoria/', {
+        fetch(`${config.API_BASE_URL}/api/categoria`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -84,7 +84,7 @@ export default function EditProduto() {
 
     const getProduto = async () => {
         try {
-            const produto = await fetchApi(`https://localhost:44334/api/produto/${id}`);
+            const produto = await fetchApi(`${config.API_BASE_URL}/api/produto/${id}`);
             setProduto(produto);
             reset(produto);
         } catch (error) {
@@ -94,7 +94,7 @@ export default function EditProduto() {
 
     const getCategorias = async () => {
         try {
-            const categorias = await fetchApi('https://localhost:44334/api/categoria');
+            const categorias = await fetchApi(`${config.API_BASE_URL}/api/categoria`);
             setCategorias(categorias);
         } catch (error) {
             console.error("Erro ao buscar categorias:", error);
@@ -103,7 +103,7 @@ export default function EditProduto() {
 
     const getFornecedores = async () => {
         try {
-            const fornecedores = await fetchApi('https://localhost:44334/api/fornecedor');
+            const fornecedores = await fetchApi(`${config.API_BASE_URL}/api/fornecedor`);
             setFornecedores(fornecedores);
         } catch (error) {
             console.error("Erro ao buscar forncedores:", error);

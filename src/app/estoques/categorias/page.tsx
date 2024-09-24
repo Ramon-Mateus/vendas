@@ -2,14 +2,14 @@
 
 import { useEffect, useState } from "react";
 import { EstoqueByCategoria } from "@/app/lib/types";
-import { fetchApi } from "@/app/lib/utilities";
+import { config, fetchApi } from "@/app/lib/utilities";
 
 export default function EstoquePorCategoria() {
   const [estoques, setEstoques] = useState<EstoqueByCategoria[]>([])
 
   const getEstoques = async () => {
     try {
-        const estoquesApi = await fetchApi('https://localhost:44334/api/categoria/estoque');
+        const estoquesApi = await fetchApi(`${config.API_BASE_URL}/api/categoria/estoque`);
         setEstoques(estoquesApi);
     } catch (error) {
         console.error("Erro ao buscar estoques:", error);
