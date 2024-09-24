@@ -83,37 +83,6 @@ export default function CreateProduto() {
         });
     };
 
-    const nomeProduto = useWatch({
-        control,
-        name: "nome"
-    });
-
-    const categoriaProduto = useWatch({
-        control,
-        name: "categoriaId"
-    });
-
-    const precoProduto = useWatch({
-        control,
-        name: "preco",
-        defaultValue: 0
-    });
-
-    const fornecedorProduto = useWatch({
-        control,
-        name: "fornecedorId"
-    });
-
-    const fornecedorNome = useWatch({
-        control,
-        name: "nome"
-    });
-
-    const categoriaNome = useWatch({
-        control,
-        name: "nome"
-    });
-
     const getCategorias = async () => {
         try {
             const categorias = await fetchApi('https://localhost:44334/api/categoria');
@@ -228,8 +197,8 @@ export default function CreateProduto() {
                             <option key={fornecedor.id} value={fornecedor.id}>{fornecedor.nome}</option>
                         ))}
                     </select>
-                    {errors.categoriaId && (
-                        <p className="text-red-500 text-xs italic mt-1">{errors.categoriaId.message}</p>
+                    {errors.fornecedorId && (
+                        <p className="text-red-500 text-xs italic mt-1">{errors.fornecedorId.message}</p>
                     )}
                 </div>
 
