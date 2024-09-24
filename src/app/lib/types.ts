@@ -32,3 +32,9 @@ export type Estoque = {
     estoque: number,
     fornecedor: string
 }
+
+export type Movimentacao = {
+    quantidade: number,
+    tipoMovimentacao: number,
+    produtoId: number
+}
