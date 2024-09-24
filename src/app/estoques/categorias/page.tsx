@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { EstoqueByCategoria } from "@/app/lib/types";
 import { fetchApi } from "@/app/lib/utilities";
 
-export default function EstoquePage() {
+export default function EstoquePorCategoria() {
   const [estoques, setEstoques] = useState<EstoqueByCategoria[]>([])
 
   const getEstoques = async () => {
