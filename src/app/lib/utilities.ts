@@ -5,5 +5,5 @@ export async function fetchApi(url: string) {
 }
 
 export const config = {
-    API_BASE_URL: "https://localhost:44334"
+    API_BASE_URL: "http://localhost:5251"
 }
